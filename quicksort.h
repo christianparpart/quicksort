@@ -54,10 +54,10 @@ void quicksort(Container& p, std::size_t low, std::size_t high, AlgorithmStats& 
 
 	if (low < high)
 	{
-		auto const pi = partition(p, low, high, stats);
-		if (pi > 0)
+		if (auto const pi = partition(p, low, high, stats); pi > 0)
 			quicksort(p, low, pi - 1, stats);
-		quicksort(p, pi + 1, high, stats);
+		else
+			quicksort(p, pi + 1, high, stats);
 	}
 }
 
