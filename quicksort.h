@@ -13,9 +13,9 @@
 namespace quicksort {
 
 struct AlgorithmStats {
-	size_t recursionDepth = 0;
-	size_t swapCount = 0;
-	size_t iterationCount = 0;
+	std::size_t recursionDepth = 0;
+	std::size_t swapCount = 0;
+	std::size_t iterationCount = 0;
 };
 
 inline std::ostream& operator<<(std::ostream& out, AlgorithmStats const& stats)
@@ -32,7 +32,7 @@ auto partition(Container& p, std::size_t low, std::size_t high, AlgorithmStats& 
 {
 	auto i = low - 1;
 	auto const pivot = p[high];
-	auto const incAndSwap = [&](size_t j) {
+	auto const incAndSwap = [&](std::size_t j) {
 		++i;
 		std::swap(p[i], p[j]);
 		stats.swapCount++;
@@ -51,13 +51,12 @@ template <typename Container>
 void quicksort(Container& p, std::size_t low, std::size_t high, AlgorithmStats& stats)
 {
 	stats.recursionDepth++;
-
 	if (low < high)
 	{
-		if (auto const pi = partition(p, low, high, stats); pi > 0)
+		auto const pi = partition(p, low, high, stats);
+		if (pi > 0)
 			quicksort(p, low, pi - 1, stats);
-		else
-			quicksort(p, pi + 1, high, stats);
+		quicksort(p, pi + 1, high, stats);
 	}
 }
 
