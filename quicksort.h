@@ -65,8 +65,8 @@ template <typename Container>
 auto sort(Container& p) -> AlgorithmStats
 {
 	AlgorithmStats stats;
-	if (std::size(p))
-		quicksort(p, 0, std::size(p) - 1, stats);
+	if (auto size = std::size(p); size != 0)
+		quicksort(p, 0, size - 1, stats);
 	return stats;
 }
 
