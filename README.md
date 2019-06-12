@@ -1,3 +1,5 @@
-# QuickSort implementation and tiny test program.
+# Sorting algorithm implementations and a tiny test program.
 
-This is a little C++17 QuickSort implementation that also returns some algorithm stats.
+These are some little C++17 sorting algorithm implementations that also returns some algorithm stats.
+
+Main purpose is pure practice.
