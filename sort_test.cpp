@@ -45,7 +45,7 @@ void assertEquals(Vector const& a, Vector const& b)
 }
 
 static auto const quicksort = make_pair("quicksort", sorting::quicksort::sort<Vector>);
-static auto const heapsort = make_pair("quicksort", sorting::heapsort::sort<Vector>);
+static auto const heapsort = make_pair("heapsort", sorting::heapsort::sort<Vector>);
 
 void test_sort(pair<string_view, Sort> const& sorter)
 {
