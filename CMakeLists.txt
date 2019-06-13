@@ -30,5 +30,5 @@ set_target_properties(sort_test PROPERTIES
 )
 
 enable_testing()
-add_test(NAME "test_quicksort" COMMAND ./test_sort quicksort)
-add_test(NAME "test_heapsort" COMMAND ./test_sort heapsort)
+add_test(NAME "test_quicksort" COMMAND ./sort_test quicksort)
+add_test(NAME "test_heapsort" COMMAND ./sort_test heapsort)
