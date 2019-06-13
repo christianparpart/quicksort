@@ -48,8 +48,6 @@ string to_string(const T (&a)[N])
     return to_string(begin(a), end(a));
 }
 
-// template <template <class> class Vector, typename T, template <class> class Sorter>
-// void test_sort(const char* name, Vector<T> a, Sorter<Vector<T>> sorter)
 template <typename Vector, typename Sorter>
 void test_sort(const char* name, Vector a, Sorter sorter)
 {
