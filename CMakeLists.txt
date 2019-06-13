@@ -13,8 +13,16 @@ else()
 	set(DO_CLANG_TIDY "${CLANG_TIDY_EXE}")
 endif()
 
-add_executable(test_sort test_sort.cpp)
-set_target_properties(test_sort PROPERTIES
+add_executable(sort_analysis sort_analysis.cpp)
+set_target_properties(sort_analysis PROPERTIES
+	CXX_STANDARD 17
+	CXX_STANDARD_REQUIRED ON
+	CXX_CLANG_TIDY "${DO_CLANG_TIDY}"
+	VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+)
+
+add_executable(sort_test sort_test.cpp)
+set_target_properties(sort_test PROPERTIES
 	CXX_STANDARD 17
 	CXX_STANDARD_REQUIRED ON
 	CXX_CLANG_TIDY "${DO_CLANG_TIDY}"
@@ -22,7 +30,5 @@ set_target_properties(test_sort PROPERTIES
 )
 
 enable_testing()
-add_test(
-	NAME test_sort
-	COMMAND ./test_sort 10000
-)
+add_test(NAME "test_quicksort" COMMAND ./test_sort quicksort)
+add_test(NAME "test_heapsort" COMMAND ./test_sort heapsort)
