@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <chrono>
 #include <cstddef>
 #include <iostream>
 
@@ -18,6 +19,15 @@ struct AlgorithmStats {
     size_t iterationCount = 0;
     size_t recursionDepth = 0;
     size_t currentRecursionDepth = 0;
+
+    std::chrono::time_point<std::chrono::steady_clock> const start = std::chrono::steady_clock::now();
+
+    std::chrono::milliseconds elapsed() const noexcept
+    {
+		auto const ns = std::chrono::steady_clock::now() - start;
+		auto const ms = std::chrono::duration_cast<std::chrono::milliseconds>(ns);
+		return ms;
+    }
 
     void enter() noexcept
     {
@@ -33,7 +43,8 @@ struct AlgorithmStats {
 inline std::ostream& operator<<(std::ostream& out, AlgorithmStats const& stats)
 {
     out << "{swaps: " << stats.swapCount << ", iterations, " << stats.iterationCount
-        << ", recursion: " << stats.recursionDepth << ", calls: " << stats.callCount << "}";
+        << ", recursion: " << stats.recursionDepth << ", calls: " << stats.callCount
+        << ", msecs: " << stats.elapsed().count() << "}";
     return out;
 }
 

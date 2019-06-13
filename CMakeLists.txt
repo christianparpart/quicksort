@@ -13,8 +13,8 @@ else()
 	set(DO_CLANG_TIDY "${CLANG_TIDY_EXE}")
 endif()
 
-add_executable(test_quicksort test_quicksort.cpp)
-set_target_properties(test_quicksort PROPERTIES
+add_executable(test_sort test_sort.cpp)
+set_target_properties(test_sort PROPERTIES
 	CXX_STANDARD 17
 	CXX_STANDARD_REQUIRED ON
 	CXX_CLANG_TIDY "${DO_CLANG_TIDY}"
