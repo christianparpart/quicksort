@@ -14,6 +14,7 @@
 namespace sorting {
 
 struct AlgorithmStats {
+    size_t compareCount = 0;
     size_t callCount = 0;
     size_t swapCount = 0;
     size_t iterationCount = 0;
@@ -37,8 +38,8 @@ struct AlgorithmStats {
 
 inline std::ostream& operator<<(std::ostream& out, AlgorithmStats const& stats)
 {
-    out << "{swaps: " << stats.swapCount << ", iterations, " << stats.iterationCount
-        << ", recursion: " << stats.recursionDepth << ", calls: " << stats.callCount
+    out << "{compares: " << stats.compareCount << ", swaps: " << stats.swapCount << ", iterations, "
+        << stats.iterationCount << ", recursion: " << stats.recursionDepth << ", calls: " << stats.callCount
         << ", nsecs: " << stats.elapsed().count() << "}";
     return out;
 }

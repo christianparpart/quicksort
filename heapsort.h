@@ -25,12 +25,20 @@ void heapify(Container& a, int n, int i, AlgorithmStats& stats)
     stats.enter();
 
     // If left child is larger than root
-    if (l < n && a[l] > a[largest])
-        largest = l;
+    if (l < n)
+    {
+        stats.compareCount++;
+        if (a[l] > a[largest])
+            largest = l;
+    }
 
     // If right child is larger than largest so far
-    if (r < n && a[r] > a[largest])
-        largest = r;
+    if (r < n)
+    {
+        stats.compareCount++;
+        if (a[r] > a[largest])
+            largest = r;
+    }
 
     // If largest is not root
     if (largest != i)

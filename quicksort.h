@@ -23,6 +23,12 @@ auto partition(Container& p, size_t low, size_t high, AlgorithmStats& stats) -> 
 {
     auto i = low - 1;
     auto const pivot = p[high];  // Here we could optimize by choosing different pivot elements.
+
+    auto const isLess = [&](auto const& a, auto const& b) -> bool {
+        stats.compareCount++;
+        return a < b;
+    };
+
     auto const incAndSwap = [&](size_t j) {
         ++i;
         std::swap(p[i], p[j]);
@@ -30,7 +36,7 @@ auto partition(Container& p, size_t low, size_t high, AlgorithmStats& stats) -> 
     };
 
     for (auto j = low; j < high; ++j, stats.iterationCount++)
-        if (p[j] <= pivot)
+        if (isLess(p[j], pivot))
             incAndSwap(j);
 
     incAndSwap(high);
