@@ -62,20 +62,19 @@ void test_sort(const char* name, Vector a, Sorter sorter)
         assert(a[n - 1] <= a[n]);
 }
 
-vector<long> createRandomVector(size_t n)
+template <typename T>
+auto createRandomVector(size_t n) -> vector<T>
 {
-    vector<long> a;
-
-    mt19937 rng;
-    rng.seed(time(nullptr));
-    generate_n(back_inserter(a), n, [&]() { return rng() % n; });
-
+    auto a = vector<T>{};
+    auto rng = mt19937{};
+    rng.seed(static_cast<unsigned>(time(nullptr)));
+    generate_n(back_inserter(a), n, [&]() { return static_cast<T>(rng() % n); });
     return a;
 }
 
 int main(int argc, char const** argv)
 {
-    auto const a = createRandomVector(argc >= 2 ? stoi(argv[1]) : 16 * 1024);
+    auto const a = createRandomVector<long>(argc >= 2 ? stoi(argv[1]) : 16 * 1024);
     using C = remove_const<decltype(a)>::type;
 
     //cout << "unsorted: " << to_string(a) << '\n';
