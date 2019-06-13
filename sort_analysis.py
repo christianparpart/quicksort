@@ -43,9 +43,9 @@ class StatsBuilder:
         return time.time() - self.startTime_
 
     def __str__(self):
-        return "{{compares: {}, swaps: {}, calls: {}, iterations: {}, recursion: {}, elapsed: {}}}".format(
-                self.compares_, self.swaps_, self.calls_, self.iterations_, self.recursionDepth_,
-                self.elapsed())
+        fmt = "{{compares: {}, swaps: {}, calls: {}, iterations: {}, recursion: {}, elapsed: {}}}"
+        return fmt.format(self.compares_, self.swaps_, self.calls_, self.iterations_,
+                          self.recursionDepth_, self.elapsed())
 
 class HeapSort:
     @staticmethod
@@ -64,28 +64,29 @@ class HeapSort:
         if r < n:
             stats.compare()
             if a[r] > a[largest]:
-                largest = r;
+                largest = r
 
         if largest != i:
             stats.swap()
             a[i], a[largest] = a[largest], a[i]
-            heapify(a, n, largest, stats)
+            HeapSort.heapify(a, n, largest, stats)
 
         stats.leave()
 
     @staticmethod
     def sort(a):
         stats = StatsBuilder()
+        n = len(a)
 
         # short-circuit trivial inputs
-        if len(a) < 2:
+        if n < 2:
             return stats
 
         # build heap by rearranging array
         i = n / 2 - 1
         while i >= 0:
             stats.iterate()
-            heapify(a, n, i, stats)
+            HeapSort.heapify(a, n, i, stats)
             i = i - 1
 
         # one-by-one, extract an element from the heap
@@ -98,7 +99,7 @@ class HeapSort:
             a[0], a[i] = a[i], a[0]
 
             # call max heapify on the reduced heap
-            heapify(a, i, 0, stats)
+            HeapSort.heapify(a, i, 0, stats)
 
             i = i - 1
 
