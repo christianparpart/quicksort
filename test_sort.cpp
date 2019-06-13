@@ -22,7 +22,8 @@
 
 using namespace std;
 
-auto to_string(auto i, auto e) -> string
+template <typename IterI, typename IterE>
+auto to_string(IterI i, IterE e) -> string
 {
     if (i == e)
         return string{};
@@ -58,8 +59,8 @@ void test_sort(const char* name, Vector a, Sorter sorter)
     // cout << "    -> " << to_string(a) << '\n';
 
     // TODO: fix bug in quicksort ;-(
-    // for (size_t n = 1; n < a.size(); ++n)
-    //     assert(a[n - 1] <= a[n]);
+    for (size_t n = 1; n < a.size(); ++n)
+        assert(a[n - 1] <= a[n]);
 }
 
 vector<long> createRandomVector(size_t n)
@@ -78,8 +79,15 @@ int main(int argc, char const** argv)
     auto const a = createRandomVector(argc >= 2 ? stoi(argv[1]) : 16 * 1024);
     using C = remove_const<decltype(a)>::type;
 
-    test_sort("heapsort", a, sorting::heapsort::sort<C>);
+    //cout << "unsorted: " << to_string(a) << '\n';
     test_sort("quicksort", a, sorting::quicksort::sort<C>);
+    test_sort("heapsort", a, sorting::heapsort::sort<C>);
+
+	// auto const a3 = vector{1, 2, 0};
+	// auto a3_ = a3;
+	// auto stats = sorting::quicksort::sort(a3_);
+	// cout << "a3_ -> " << to_string(a3_) << '\n';
+	// assert(a3_ == (vector{0, 1, 2}));
 
     return EXIT_SUCCESS;
 }
