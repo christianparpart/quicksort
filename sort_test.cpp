@@ -25,59 +25,10 @@
 
 using namespace std;
 
-template <typename IterI, typename IterE>
-auto to_string(IterI i, IterE e) -> string
-{
-    if (i == e)
-        return string{};
-
-    stringstream sstr;
-    sstr << *i;
-    while (++i != e)
-        sstr << ", " << *i;
-    return sstr.str();
-}
-
-template <typename T>
-string to_string(vector<T> const& a)
-{
-    return to_string(begin(a), end(a));
-}
-
-template <typename T, size_t N>
-string to_string(const T (&a)[N])
-{
-    return to_string(begin(a), end(a));
-}
-
-template <typename Vector, typename Sorter>
-void test_sort(const char* name, Vector a, Sorter sorter)
-{
-    auto const astats = sorter(a);
-
-    cout << setw(10) << name << ": " << astats << '\n';
-
-    // cout << "    -> " << to_string(a) << '\n';
-
-    // TODO: fix bug in quicksort ;-(
-    for (size_t n = 1; n < a.size(); ++n)
-        assert(a[n - 1] <= a[n]);
-}
-
-template <typename T>
-auto createRandomVector(size_t n) -> vector<T>
-{
-    auto a = vector<T>{};
-    auto rng = mt19937{};
-    rng.seed(static_cast<unsigned>(time(nullptr)));
-    generate_n(back_inserter(a), n, [&]() { return static_cast<T>(rng() % n); });
-    return a;
-}
-
 using Vector = vector<long>;
 using Sort = function<void(Vector&)>;
 
-void fail(std::string_view const& msg)
+void fail(string_view const& msg)
 {
     clog << msg << '\n';
     abort();
