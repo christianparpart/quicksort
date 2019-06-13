@@ -20,3 +20,9 @@ set_target_properties(test_sort PROPERTIES
 	CXX_CLANG_TIDY "${DO_CLANG_TIDY}"
 	VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
 )
+
+enable_testing()
+add_test(
+	NAME test_sort
+	COMMAND ./test_sort 10000
+)
