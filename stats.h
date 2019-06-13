@@ -15,8 +15,8 @@ namespace sorting {
 
 struct AlgorithmStats {
     size_t compareCount = 0;
-    size_t callCount = 0;
     size_t swapCount = 0;
+    size_t callCount = 0;
     size_t iterationCount = 0;
     size_t recursionDepth = 0;
     size_t currentRecursionDepth = 0;
