@@ -22,12 +22,7 @@ struct AlgorithmStats {
 
     std::chrono::time_point<std::chrono::steady_clock> const start = std::chrono::steady_clock::now();
 
-    std::chrono::milliseconds elapsed() const noexcept
-    {
-		auto const ns = std::chrono::steady_clock::now() - start;
-		auto const ms = std::chrono::duration_cast<std::chrono::milliseconds>(ns);
-		return ms;
-    }
+    std::chrono::nanoseconds elapsed() const noexcept { return std::chrono::steady_clock::now() - start; }
 
     void enter() noexcept
     {
@@ -44,7 +39,7 @@ inline std::ostream& operator<<(std::ostream& out, AlgorithmStats const& stats)
 {
     out << "{swaps: " << stats.swapCount << ", iterations, " << stats.iterationCount
         << ", recursion: " << stats.recursionDepth << ", calls: " << stats.callCount
-        << ", msecs: " << stats.elapsed().count() << "}";
+        << ", nsecs: " << stats.elapsed().count() << "}";
     return out;
 }
 

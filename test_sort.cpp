@@ -19,6 +19,7 @@
 #include <string>
 #include <type_traits>
 #include <vector>
+#include <iomanip>
 
 using namespace std;
 
@@ -54,7 +55,7 @@ void test_sort(const char* name, Vector a, Sorter sorter)
 {
     auto const astats = sorter(a);
 
-    cout << name << ": " << astats << '\n';
+    cout << setw(10) << name << ": " << astats << '\n';
 
     // cout << "    -> " << to_string(a) << '\n';
 
