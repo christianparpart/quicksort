@@ -159,11 +159,24 @@ def sort_B(a):
     stats = HeapSort.sort(a)
     return (stats.compares_ + stats.swaps_, stats.elapsed())
 
-def _private_test():
-    print("Hello, World; TODO: test me")
+def read_words_from_file(filename):
+    with open(filename, mode = 'r', encoding = 'utf-8') as f:
+        return f.read().split()
 
-    x = StatsBuilder()
-    print("stats: {}".format(x))
+def _private_test():
+    def test_algo(name, sort, words):
+        stats = sort(words)
+        print("{}: {}".format(name, stats))
+        for w in words:
+            print("  word: {}".format(w))
+
+    words = ["F", "A", "C", "B"] #read_words_from_file("test.txt")
+    print("input list:")
+    for w in words:
+        print("  word: {}".format(w))
+
+    test_algo("quicksort", QuickSort.sort, words[:])
+    test_algo("heapsort", HeapSort.sort, words[:])
 
 if __name__ == "__main__":
     _private_test()
