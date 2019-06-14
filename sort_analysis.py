@@ -9,7 +9,7 @@
 
 import time
 
-class StatsBuilder:
+class _StatsBuilder:
     def __init__(self):
         self.compares_ = 0
         self.swaps_ = 0
@@ -83,7 +83,7 @@ class HeapSort:
 
     @staticmethod
     def sort(a):
-        stats = StatsBuilder()
+        stats = _StatsBuilder()
         n = len(a)
 
         # short-circuit trivial inputs
@@ -151,7 +151,7 @@ class QuickSort:
 
     @staticmethod
     def sort(a):
-        stats = StatsBuilder()
+        stats = _StatsBuilder()
         n = len(a)
         if n != 0:
             QuickSort.sort_range(a, 0, n - 1, stats)
