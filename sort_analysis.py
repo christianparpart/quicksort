@@ -170,7 +170,7 @@ def _private_test():
         for w in words:
             print("  word: {}".format(w))
 
-    words = ["F", "A", "C", "B"] #read_words_from_file("test.txt")
+    words = ["F", "A", "C", "B"] # XXX read_words_from_file("test.txt")
     print("input list:")
     for w in words:
         print("  word: {}".format(w))
