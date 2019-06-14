@@ -42,6 +42,14 @@ class StatsBuilder:
     def elapsed(self):
         return time.time() - self.start_time_
 
+    def summarize(self):
+        return {"compares": self.compares_,
+                "swaps": self.swaps_,
+                "calls": self.calls_,
+                "iterations": self.iterations_,
+                "recursion_depth": self.recursion_depth_,
+                "time": self.elapsed()}
+
     def __str__(self):
         fmt = "{{compares: {}, swaps: {}, calls: {}, iterations: {}, recursion: {}, elapsed: {}}}"
         return fmt.format(self.compares_, self.swaps_, self.calls_, self.iterations_,
@@ -103,7 +111,7 @@ class HeapSort:
 
             i = i - 1
 
-        return stats
+        return stats.summarize()
 
 class QuickSort:
     @staticmethod
@@ -147,17 +155,17 @@ class QuickSort:
         n = len(a)
         if n != 0:
             QuickSort.sort_range(a, 0, n - 1, stats)
-        return stats
+        return stats.summarize()
 
 # as per home-assignment
 def sort_A(a):
     stats = QuickSort.sort(a)
-    return (stats.compares_ + stats.swaps_, stats.elapsed())
+    return (stats["compares"] + stats["swaps"], stats["time"])
 
 # as per home-assignment
 def sort_B(a):
     stats = HeapSort.sort(a)
-    return (stats.compares_ + stats.swaps_, stats.elapsed())
+    return (stats["compares"] + stats["swaps"], stats["time"])
 
 def read_words_from_file(filename):
     with open(filename, mode='r', encoding='utf-8') as f:
