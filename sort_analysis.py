@@ -15,9 +15,9 @@ class StatsBuilder:
         self.swaps_ = 0
         self.calls_ = 0
         self.iterations_ = 0
-        self.recursionDepth_ = 0
-        self.currentRecursionDepth_ = 0
-        self.startTime_ = time.time()
+        self.recursion_depth_ = 0
+        self.current_recursion_depth_ = 0
+        self.start_time_ = time.time()
 
     def compare(self):
         self.compares_ = self.compares_ + 1
@@ -32,20 +32,20 @@ class StatsBuilder:
         self.iterations_ = self.iterations_ + 1
 
     def enter(self):
-        self.currentRecursionDepth_ = self.currentRecursionDepth_ + 1
-        if self.currentRecursionDepth_ > self.recursionDepth_:
-            self.recursionDepth_ = self.currentRecursionDepth_
+        self.current_recursion_depth_ = self.current_recursion_depth_ + 1
+        if self.current_recursion_depth_ > self.recursion_depth_:
+            self.recursion_depth_ = self.current_recursion_depth_
 
     def leave(self):
-        self.currentRecursionDepth_ = self.currentRecursionDepth_ - 1
+        self.current_recursion_depth_ = self.current_recursion_depth_ - 1
 
     def elapsed(self):
-        return time.time() - self.startTime_
+        return time.time() - self.start_time_
 
     def __str__(self):
         fmt = "{{compares: {}, swaps: {}, calls: {}, iterations: {}, recursion: {}, elapsed: {}}}"
         return fmt.format(self.compares_, self.swaps_, self.calls_, self.iterations_,
-                          self.recursionDepth_, self.elapsed())
+                          self.recursion_depth_, self.elapsed())
 
 class HeapSort:
     @staticmethod
@@ -55,7 +55,7 @@ class HeapSort:
         r = 2 * i + 2
 
         stats.enter()
-        
+
         if l < n:
             stats.compare()
             if a[l] > a[largest]:
@@ -107,8 +107,47 @@ class HeapSort:
 
 class QuickSort:
     @staticmethod
+    def partition(p, low, high, stats):
+        def is_less(a, b):
+            stats.compare()
+            return a < b
+
+        def inc_i_and_swap_at(i, j):
+            """ increments i and swaps p[i] with p[j] """
+            i = i + 1
+            stats.swap()
+            p[i], p[j] = p[j], p[i]
+            return i
+
+        i = low - 1
+        pivot = p[high]
+
+        for j in range(low, high):
+            stats.iterate()
+            if is_less(p[j], pivot):
+                i = inc_i_and_swap_at(i, j)
+
+        return inc_i_and_swap_at(i, high)
+
+    @staticmethod
+    def sort_range(p, low, high, stats):
+        stats.enter()
+
+        if low < high:
+            p_i = QuickSort.partition(p, low, high, stats)
+            if p_i > 0:
+                QuickSort.sort_range(p, low, p_i - 1, stats)
+            QuickSort.sort_range(p, p_i + 1, high, stats)
+
+        stats.leave()
+
+    @staticmethod
     def sort(a):
-        "TODO"
+        stats = StatsBuilder()
+        n = len(a)
+        if n != 0:
+            QuickSort.sort_range(a, 0, n - 1, stats)
+        return stats
 
 # as per home-assignment
 def sort_A(a):
@@ -118,8 +157,11 @@ def sort_A(a):
 def sort_B(a):
     return HeapSort.sort(a)
 
-if __name__ == "__main__":
+def _private_test():
     print("Hello, World; TODO: test me")
 
     x = StatsBuilder()
     print("stats: {}".format(x))
+
+if __name__ == "__main__":
+    _private_test()
