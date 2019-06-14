@@ -151,11 +151,13 @@ class QuickSort:
 
 # as per home-assignment
 def sort_A(a):
-    return QuickSort.sort(a)
+    stats = QuickSort.sort(a)
+    return (stats.compares_ + stats.swaps_, stats.elapsed())
 
 # as per home-assignment
 def sort_B(a):
-    return HeapSort.sort(a)
+    stats = HeapSort.sort(a)
+    return (stats.compares_ + stats.swaps_, stats.elapsed())
 
 def _private_test():
     print("Hello, World; TODO: test me")
