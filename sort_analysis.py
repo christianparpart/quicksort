@@ -20,16 +20,16 @@ class StatsBuilder:
         self.start_time_ = time.time()
 
     def compare(self):
-        self.compares_ = self.compares_ + 1
+        self.compares_ += 1
 
     def swap(self):
-        self.swaps_ = self.swaps_ + 1
+        self.swaps_ += 1
 
     def call(self):
-        self.calls_ = self.calls_ + 1
+        self.calls_ += 1
 
     def iterate(self):
-        self.iterations_ = self.iterations_ + 1
+        self.iterations_ += 1
 
     def enter(self):
         self.current_recursion_depth_ = self.current_recursion_depth_ + 1
@@ -37,7 +37,7 @@ class StatsBuilder:
             self.recursion_depth_ = self.current_recursion_depth_
 
     def leave(self):
-        self.current_recursion_depth_ = self.current_recursion_depth_ - 1
+        self.current_recursion_depth_ += 1
 
     def elapsed(self):
         return time.time() - self.start_time_
