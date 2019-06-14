@@ -83,7 +83,7 @@ class HeapSort:
             return stats
 
         # build heap by rearranging array
-        i = n / 2 - 1
+        i = n // 2 - 1
         while i >= 0:
             stats.iterate()
             HeapSort.heapify(a, n, i, stats)
